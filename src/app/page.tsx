@@ -116,6 +116,8 @@ export default function Home() {
     const { connection } = useConnection();
     umi = umi.use(walletAdapterIdentity(wallet));
 
+    
+
     async function uploadAndCreateNft(
       umi: Umi,
       name: string,
@@ -523,7 +525,7 @@ export default function Home() {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect={false}>
           <WalletModalProvider>
-            <main className={styles.main}>
+          <main className={styles.main}>
               <div className={styles.wallet}>
                 <WalletMultiButtonDynamic />
               </div>

@@ -118,6 +118,21 @@ function SignTransaction() {
         alert(`Transaction confirmed: ${signature}`);
       }
 
+      //if exits check token account balance
+      let tokenAccountBalance= await connection.getTokenAccountBalance(userTokenAddress);
+
+      const decimalPlaces = tokenAccountBalance.value.decimals
+      const tokenValue = parseFloat(tokenAccountBalance.value.amount)/ Math.pow(10, decimalPlaces)
+      // console.log(`amount: ${parseInt(tokenAccountBalance.value.amount)}`);
+      // console.log(`decimals: ${tokenAccountBalance.value.decimals}`);
+
+      if(tokenValue < 25){
+        alert('You need 25 SIGN tokens to notarise a document.')
+        return
+      }
+      // console.log(tokenValue)
+
+
       //receiver token account
       let receiverTokenAddress = await getAssociatedTokenAddress(
         mintAccountPublicKey, // mint
@@ -167,7 +182,7 @@ function SignTransaction() {
           mintAccountPublicKey, // mint
           receiverTokenAddress, // to (should be a token account)
           publicKey, // from's owner
-          5e9, // amount, if your deciamls is 8, send 10^8 for 1 token
+          25e9, // amount, if your deciamls is 8, send 10^8 for 1 token
           9 // decimals
         )
       );
